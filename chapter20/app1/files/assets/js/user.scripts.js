@@ -46,7 +46,7 @@ $(document).ready(function(){
       // encode: true,
     })
     .done( function(response) {
-      // console.log(">>", response);
+      console.log(">>", response);
       
       let data = response.data;
       let status = response.status
@@ -60,7 +60,7 @@ $(document).ready(function(){
           console.log(false,'Πρόβλημα στην εισαγωγή του χρήστη ('+ data.message + ')');
           alert(false,'Πρόβλημα στην εισαγωγή του χρήστη ('+ data.message + ')');
           $('#frmUser')[0].reset();
-          // console.log(data.message);
+          console.log(data.message);
       }
     });
 

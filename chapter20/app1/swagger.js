@@ -204,6 +204,161 @@ exports.options = {
           }
         }
       }
+    },
+      "/api/products":{
+        "get":{
+          "tags":["Products"],
+          "description":"Return all products",
+          "responses":{
+            "200":{
+              "description":"A list of products",
+              "content":{
+                "application/json":{
+                  "schema":{
+                    "type":"array",
+                    "items":{
+                      "$ref":"#/components/schemas/Product"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "post":{
+          "tags":["Products"],
+          "description":"Create new product",
+          "requestBody":{
+            "description":"Product schema to insert",
+            "content":{
+              "application/json":{
+                "schema":{
+                  "type":"object",
+                  "properties":{
+                    "product": {"type":"string"},
+                    "cost": {"type":"number"},
+                    "description": {"type":"string"},
+                    "quantity": {"type":"number"}
+                  },
+                  "required":["product", "cost", "description", "quantity"]
+                }
+              }
+            }
+          },
+          "responses":{
+            "200":{
+              "description":"New product inserted"
+            }
+          }
+        },
+    },
+    "/api/products/{product}":{
+      "get":{
+        "tags":["Products"],
+        "parameters":[
+          {
+            "name":"product",
+            "in":"path",
+            "required":true,
+            "description":"Product to find",
+            "type":"string"
+          }
+        ],
+        "description":"Get product with specific name",
+        "responses":{
+          "200":{
+            "description":"Product to find",
+            "schema":{
+              "$ref":"#/components/schemas/Product"
+            }
+          }
+        }
+      },
+      "patch":{
+        "tags":["Products"],
+        "description":"Update product in app",
+        "parameters":[
+          {
+            "name":"product",
+            "in":"path",
+            "required":true,
+            "description":"Product to update",
+            "type":"string"
+          }
+        ],
+        "requestBody":{
+          "description":"Product that we update",
+          "content":{
+            "application/json":{
+              "schema":{
+                "type":"object",
+                "properties":{
+                  "product": {"type":"string"},
+                  "cost": {"type":"number"},
+                  "description": {"type":"string"},
+                  "quantity": {"type":"number"}
+                },
+                "required":["product"]
+              }
+            }
+          }
+        },
+        "responses":{
+          "200":{
+            "description":"Update product",
+            "schema":{
+              "$ref":"#/components/schemas/Product"
+            }
+          }
+        }
+      },
+      "delete":{
+        "tags":["Products"],
+        "description":"Delete a product",
+        "parameters":[
+          {
+            "name":"product",
+            "in":"path",
+            "description":"Product to delete",
+            "type":"string"
+          }
+        ],
+        "responses":{
+          "200":{
+            "description":"Delete a product"
+          }
+        }
+      }
+    },
+    "/api/users/{username}/products":{
+      "get":{
+        "tags":["Users and Products"],
+        "parameters":[
+          {
+            "name":"username",
+            "in":"path",
+            "required":true,
+            "description":"Username of user to find products",
+            "type":"string"
+          }
+        ],
+        "description":"Return all products of user",
+        "responses":{
+          "200":{
+            "description":"A list of products",
+            "content":{
+              "application/json":{
+                "schema":{
+                  "type":"array",
+                  "items":{
+                    "$ref":"#/components/schemas/Product"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

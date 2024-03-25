@@ -1,5 +1,15 @@
+/**
+ * User helper functions.
+ */
+
+
+// User model
 const User = require('../models/user.model')
 
+/**
+ * Find the last inserted user.
+ * @returns The last inserted user.
+ */
 async function findLastInsertedUser(){
   console.log('Find las inserted user');
 
@@ -12,5 +22,5 @@ async function findLastInsertedUser(){
   }
 }
 
-
+// End code
 module.exports = { findLastInsertedUser }

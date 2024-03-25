@@ -1,18 +1,29 @@
+/**
+ * User Products Controller
+ */
+
+// Import User model
+const { log } = require('winston');
+const logger = require('../logger/logger');
 const User = require('../models/user.model');
 
+// Find all users products
 exports.findAll = async(req, res) => {
   console.log("Find all users products");
 
   try {
     const result = await User.find({},{_id:0, username:1, products:1})
     res.status(200).json({data: result});
-    console.log("Reading all users products")
+    console.log("Reading all users products");
+    logger.debug("Reading all users products");
+    logger.info("Reading all users products");
   } catch(err){
     res.status(400).json({data:err})
     console.log("Problem in reading users products");
+    logger.error("Problem in reading users products", err);
   }
 }
-
+// Find products for a specific user
 exports.findOne = async (req, res)=> {
   const username = req.params.username;
   console.log('Find products for user:', username);
@@ -21,12 +32,14 @@ exports.findOne = async (req, res)=> {
     const result = await User.findOne({username:username}, {_id:0, username:1, products:1})
     res.status(200).json({data: result});
     console.log("Success in finding products ", username);
+    logger.debug("Success in finding products ", username);
   } catch(err) {
     res.status(400).json({data:err});
     console.log("Problem in finding products ", username);
+    logger.error("Problem in finding products ", username);
   }
 }
-
+//  Create a new product for a user
 exports.create = async (req, res) =>{
   const username = req.body.username;
   const products = req.body.products;
@@ -44,12 +57,15 @@ exports.create = async (req, res) =>{
     )
     res.status(200).json({data: result});
     console.log("Success insert");
+    logger.debug("Success insert product", username);
+    logger.info("Success insert product", username);
   } catch(err){
     res.status(400).json({data:err})
-    console.log("Failed insert")
+    console.log("Failed insert");
+    logger.error("Failed insert product", username);
   }
 }
-
+//  Update a product for a user
 exports.update = async (req, res)=>{
   const username = req.params.username;
   const _id = req.body.product._id;
@@ -68,13 +84,15 @@ exports.update = async (req, res)=>{
     )
     res.status(200).json({data: result});
     console.log("Success in updating product", username);
+    logger.debug("Success in updating product", username);
+    logger.info("Success in updating product", username);
   } catch(err) {
     res.status(400).json({data: err})
     console.log("Problem in updating product", username);
-
+    logger.error("Problem in updating product", username);
   }
 }
-
+//  Delete a product for a user
 exports.delete = async(req, res) => {
   const username = req.params.username;
   const _id = req.params.id;
@@ -92,8 +110,11 @@ exports.delete = async(req, res) => {
     )
     res.status(200).json({data: result});
     console.log("Success in deleting product", username);
+    logger.debug("Success in deleting product", username);
+    logger.info("Success in deleting product", username);
   } catch(err) {
     res.status(400).json({data: err})
     console.log("Problem in deleting product", username);
+    logger.error("Problem in deleting product", username);
   }
 }

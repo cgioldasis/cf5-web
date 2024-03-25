@@ -1,3 +1,7 @@
+/**
+ * User controller
+ */
+
 const User = require('../models/user.model')
 const logger = require('../logger/logger') 
 

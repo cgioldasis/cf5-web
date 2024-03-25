@@ -1,25 +1,31 @@
+/**
+ * User model.
+ */
+
+// Load mongoose
 const mongoose = require('mongoose');
+// Load unique validator
 const uniqueValidator = require('mongoose-unique-validator');
-
+// Schema
 const Schema = mongoose.Schema
-
+// Define address schema which is part of user schema
 let addressSchema = new Schema({
   area: { type: String},
   road: {type: String}
 }, {_id: false})
-
+// Define phone schema which is part of user schema
 let phoneSchema = new Schema({
   type: { type: String },
   number: { type: String }
 }, {_id: false})
-
+// Define product schema which is part of user schema
 let productSchema = new Schema({
   product: { type: String},
   cost: {type: Number},
   quantity: {type: Number},
   date: { type: Date, default: Date.now }
 })
-
+// Define collection and schema for User
 let userSchema = new Schema({
   username: {
     type: String,
@@ -51,8 +57,8 @@ let userSchema = new Schema({
 }, {
   collection: 'users',
   timestamps: true
-})
-
+});
+// Apply unique validator plugin to user schema
 userSchema.plugin(uniqueValidator);
 
 module.exports = mongoose.model('User', userSchema)

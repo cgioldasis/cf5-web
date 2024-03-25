@@ -1,18 +1,21 @@
+// winston logger
 const { format, createLogger, transports } = require('winston');
+// DailyRotateFile transport
 require('winston-daily-rotate-file');
+// MongoDB transport
 require('winston-mongodb');
-
+// Load environment variables
 require('dotenv').config();
-
+// Define the custom logger
 const { combine, timestamp, label, prettyPrint } = format
-
+// Define the file transport
 const fileRotateTransport = new transports.DailyRotateFile({
   level: "info",
   filename: "logs/info-%DATE%.log",
   datePattern: "DD-MM-YYYY",
   maxFiles:"10d"
 })
-
+// Define the logger
 const logger = createLogger({
   level: "debug",
   format: combine (
@@ -51,5 +54,5 @@ const logger = createLogger({
     })
   ]
 })
-
+// Export the logger
 module.exports = logger;
