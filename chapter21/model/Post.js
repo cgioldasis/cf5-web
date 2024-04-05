@@ -1,8 +1,8 @@
 const EntitySchema = require('typeorm').EntitySchema;
 
-const Post = new EntitySchema({
+const PostEntity = new EntitySchema({
     name: "Post",
-    target: Post,
+    target: "Post",
     columns: {
         id: {
             primary: true,
@@ -17,13 +17,13 @@ const Post = new EntitySchema({
         }
     },
     relations: {
-        categories: {
-            target: "Category",
-            type: "many-to-many",
-            joinTable: true,
-            cascade: true
-        }
+       categories: {
+        target: "Category",
+        type: "many-to-many",
+        joinTable: true,
+        cascade: true
+       } 
     }
 })
 
-module.exports = {PostEntity};
+module.exports = { PostEntity }

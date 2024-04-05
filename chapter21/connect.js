@@ -1,13 +1,15 @@
 const typeorm = require('typeorm');
 
 const CategoryEntity = require('./model/Category').CategoryEntity;
-const PostEntity = require('./model/Post').PostEntity;
+const PostEntity = require('./model/Post').PostEntity
+
+// console.log(process.env.HOST, process.env.DBUSER, process.env.PASSWORD, process.env.DATABASE)
 
 const dataSource = new typeorm.DataSource({
-    type : "mariadb",
+    type: "mariadb",
     host: process.env.HOST,
     port: 3306,
-    username: process.env.USER,
+    username: process.env.DBUSER,
     password: process.env.PASSWORD,
     database: process.env.DATABASE,
     synchronize: true,
@@ -16,11 +18,11 @@ const dataSource = new typeorm.DataSource({
 
 dataSource
     .initialize()
-    .then( function(){
-        console.log("Database connected");
+    .then( function() {
+        console.log("Connected to database")
     })
-    .catch( function(err){
-        console.log("Problem in connecting to database", err);
-    });
+    .catch( function(error) {
+        console.log("Problem in connecting to database", error)
+    })
 
-module.exports = {dataSource};
+module.exports = { dataSource }

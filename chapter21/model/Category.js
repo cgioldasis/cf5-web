@@ -1,16 +1,15 @@
 const EntitySchema = require('typeorm').EntitySchema;
 
 class Category {
-    constructor(name){
+    constructor(id, name) {
         this.id = id;
-        this.name = name;
-    
+        this.name = name
     }
 }
 
 const CategoryEntity = new EntitySchema({
     name: "Category",
-    target: Category,
+    target: "Category",
     columns: {
         id: {
             primary: true,
@@ -23,4 +22,4 @@ const CategoryEntity = new EntitySchema({
     }
 })
 
-module.exports = {CategoryEntity};
+module.exports = { CategoryEntity }
